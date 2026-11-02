@@ -133,7 +133,9 @@ a:hover{color:var(--ink)}
 .slide__knob{
   position:absolute;left:4px;top:4px;width:54px;height:54px;background:var(--bronze);color:#120d08;
   display:grid;place-items:center;font-size:20px;cursor:grab;will-change:transform;
+  transition:transform .5s cubic-bezier(.2,1.35,.4,1);
 }
+.slide.is-drag .slide__knob{transition:none}
 .slide__knob:active{cursor:grabbing}
 .slide__done{
   position:absolute;inset:0;display:grid;place-items:center;background:var(--bronze);color:#120d08;
@@ -152,7 +154,11 @@ a:hover{color:var(--ink)}
   position:absolute;top:64px;width:26px;height:26px;border-radius:50%;
   background:var(--bronze);cursor:grab;touch-action:none;will-change:transform;
   box-shadow:0 0 0 6px rgba(184,129,79,.10);
+  transition:transform .65s cubic-bezier(.2,1.5,.35,1);
 }
+.cord.is-drag .cord__knob{transition:none}
+.cord__wire{transition:height .4s cubic-bezier(.3,1.2,.4,1)}
+.cord.is-drag .cord__wire{transition:none}
 .cord__knob:active{cursor:grabbing}
 .cord.is-pulled .cord__knob{background:var(--bronze-2)}
 

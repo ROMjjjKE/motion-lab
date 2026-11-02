@@ -214,11 +214,8 @@ function slideToConfirm() {
   if (!wrap || !knob) return;
 
   const hint = $('.slide__hint', wrap);
-  let max = 0;
-  let dragging = false;
-  let startX = 0;
-  let offset = 0;
-  let done = false;
+  const doneEl = $('.slide__done', wrap);
+  let max = 0, dragging = false, startX = 0, base = 0, offset = 0, done = false;
 
   const measure = () => { max = wrap.clientWidth - knob.clientWidth - 8; };
   measure();
@@ -226,47 +223,51 @@ function slideToConfirm() {
 
   const paint = () => {
     knob.style.transform = `translateX(${offset}px)`;
-    if (hint) hint.style.opacity = String(clamp(1 - offset / (max * 0.55), 0, 1));
+    if (hint) hint.style.opacity = String(clamp(1 - offset / (max * 0.5), 0, 1));
   };
 
   knob.addEventListener('pointerdown', e => {
     if (done) return;
     dragging = true;
+    base = offset;
     startX = e.clientX;
-    offset = 0;
+    wrap.classList.add('is-drag');
     knob.setPointerCapture(e.pointerId);
   });
 
   knob.addEventListener('pointermove', e => {
     if (!dragging || done) return;
-    offset = clamp(e.clientX - startX, 0, max * 1.04);
+    offset = clamp(base + (e.clientX - startX), 0, max);
     paint();
   });
 
   const finish = () => {
     if (!dragging) return;
     dragging = false;
-    if (offset > max * 0.9) {
+    wrap.classList.remove('is-drag');
+
+    if (offset > max * 0.88) {
       done = true;
-      mAnimate(knob, { x: max }, { type: 'spring', stiffness: 200, damping: 20 });
+      offset = max;
+      paint();
       wrap.classList.add('is-done');
-      const doneEl = $('.slide__done', wrap);
-      if (doneEl) mAnimate(doneEl, { opacity: [0, 1] }, { duration: 0.25 });
+      if (doneEl) doneEl.style.opacity = '1';
       setTimeout(() => {
-        done = false;
         wrap.classList.remove('is-done');
         if (doneEl) doneEl.style.opacity = '';
-        offset = 0; paint();
-        mAnimate(knob, { x: 0 }, { type: 'spring', stiffness: 300, damping: 24 });
-      }, 1800);
+        done = false;
+        offset = 0;
+        paint();
+      }, 1700);
     } else {
-      offset = 0; paint();
-      mAnimate(knob, { x: 0 }, { type: 'spring', stiffness: 300, damping: 20 });
+      offset = 0;
+      paint();
     }
   };
 
   knob.addEventListener('pointerup', finish);
   knob.addEventListener('pointercancel', finish);
+  paint();
 }
 
 function pullCord() {
@@ -275,34 +276,37 @@ function pullCord() {
   const wire = $('#cordWire');
   if (!cord || !knob || !wire) return;
 
-  let dragging = false;
-  let startY = 0;
-  let dy = 0;
-  let fired = false;
+  let dragging = false, startY = 0, dy = 0, fired = false;
+
+  const paint = v => {
+    knob.style.transform = `translateY(${v}px)`;
+    wire.style.height = `${64 + v}px`;
+  };
 
   knob.addEventListener('pointerdown', e => {
     dragging = true; startY = e.clientY; dy = 0; fired = false;
-    cord.classList.add('is-pulled');
+    cord.classList.add('is-pulled', 'is-drag');
     knob.setPointerCapture(e.pointerId);
   });
 
   knob.addEventListener('pointermove', e => {
     if (!dragging) return;
     dy = clamp(e.clientY - startY, 0, 96);
-    knob.style.transform = `translateY(${dy}px)`;
-    wire.style.height = `${64 + dy}px`;
-    if (dy > 62 && !fired) {
+    paint(dy);
+    if (dy > 60 && !fired) {
       fired = true;
-      mAnimate(cord, { filter: ['brightness(1)', 'brightness(2.1)', 'brightness(1)'] }, { duration: 0.42 });
+      cord.animate(
+        [{ filter: 'brightness(1)' }, { filter: 'brightness(2.2)' }, { filter: 'brightness(1)' }],
+        { duration: 420, easing: 'ease-out' }
+      );
     }
   });
 
   const release = () => {
     if (!dragging) return;
     dragging = false;
-    cord.classList.remove('is-pulled');
-    wire.style.height = '70px';
-    mAnimate(knob, { y: 0 }, { type: 'spring', stiffness: 320, damping: 9, mass: 0.7 });
+    cord.classList.remove('is-pulled', 'is-drag');
+    paint(0);
   };
 
   knob.addEventListener('pointerup', release);
