@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motion Lab — 6 анимаций для шаблонов SiteFast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<header class="top">
+  <span class="top__mark">SiteFast / Motion Lab</span>
+  <span class="top__meta" id="fps">—</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas class="hero__canvas" id="dotfield"></canvas>
+  <div class="hero__inner">
+    <p class="eyebrow reveal">Демо-полка · ноябрь 2026</p>
+    <h1 class="hero__title" aria-label="Motion Lab">
+      <span class="line"><span class="ch">M</span><span class="ch">O</span><span class="ch">T</span><span class="ch">I</span><span class="ch">O</span><span class="ch">N</span></span>
+      <span class="line line--accent"><span class="ch">L</span><span class="ch">A</span><span class="ch">B</span></span>
+    </h1>
+    <p class="hero__sub reveal">Шесть механик из Anime.js, Motion, Kokonut UI и 21st.dev — в нашем строгом стиле: острые углы, бронза, Roboto Condensed.</p>
+  </div>
+  <div class="hero__foot">
+    <span class="hint">Скролл</span>
+    <span class="hero__rule"></span>
+    <span class="hint">06 механик</span>
+  </div>
+</section>
+
+<main>
+
+<!-- 01 ANIME.JS -->
+<section class="sec" data-sec>
+  <div class="sec__head">
+    <span class="num">01</span>
+    <div>
+      <h2>Anime.js — чертёж и счётчики</h2>
+      <p class="src">animejs.com · MIT · 24,5 КБ · SVG-рисовка, stagger, таймлайны</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <figure class="blueprint">
+      <svg viewBox="0 0 400 260" class="bp-svg" id="bp">
+        <g fill="none" stroke="#b8814f" stroke-width="1.4">
+          <path class="bp-line" d="M40 40 H360 V220 H40 Z"/>
+          <path class="bp-line" d="M40 130 H200"/>
+          <path class="bp-line" d="M200 130 V220"/>
+          <path class="bp-line" d="M232 40 V96 H360"/>
+        </g>
+        <g stroke="rgba(244,242,238,.35)" stroke-width="1" fill="none">
+          <path class="bp-dim" d="M40 240 H360"/>
+          <path class="bp-dim" d="M40 236 V244 M360 236 V244"/>
+          <path class="bp-dim" d="M24 40 V220"/>
+          <path class="bp-dim" d="M20 40 H28 M20 220 H28"/>
+        </g>
+        <g stroke="#b8814f" stroke-width="1.4" fill="none">
+          <path class="bp-detail" d="M60 60 h48 v34 h-48 z"/>
+          <path class="bp-detail" d="M128 60 h40 v34 h-40 z"/>
+          <path class="bp-detail" d="M60 112 h108"/>
+        </g>
+      </svg>
+      <figcaption>SVG draw-on-scroll: конструкция обводится линиями по мере входа в кадр</figcaption>
+    </figure>
+
+    <div class="stats" id="stats">
+      <div class="stat"><span class="stat__num" data-to="147" data-suffix=" кадр.">0</span><span class="stat__cap">таймлайн hero</span></div>
+      <div class="stat"><span class="stat__num" data-to="1250" data-suffix="%">0</span><span class="stat__cap">высота скролла</span></div>
+      <div class="stat"><span class="stat__num" data-to="5" data-suffix=" дней">0</span><span class="stat__cap">срок сборки</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 MOTION -->
+<section class="sec" data-sec>
+  <div class="sec__head">
+    <span class="num">02</span>
+    <div>
+      <h2>Motion — магнит и пружины</h2>
+      <p class="src">motion.dev · MIT · React / JS / Vue · springs, layout, scroll</p>
+    </div>
+  </div>
+
+  <div class="grid2 grid2--tight">
+    <div class="magnet-zone" id="magnetZone">
+      <button class="magnet" id="magnet" type="button">
+        <span class="magnet__label">Оставить заявку</span>
+        <span class="magnet__arrow" aria-hidden="true">↗</span>
+      </button>
+      <p class="cap">Кнопка тянется к курсору на пружине и возвращается по инерции</p>
+    </div>
+
+    <div class="spring-stack" id="springStack">
+      <div class="spring-card" data-i="0"><b>01</b><span>Пружина без библиотеки переходов</span></div>
+      <div class="spring-card" data-i="1"><b>02</b><span>Stagger при появлении</span></div>
+      <div class="spring-card" data-i="2"><b>03</b><span>Возврат с перелётом</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 KOKONUT -->
+<section class="sec" data-sec>
+  <div class="sec__head">
+    <span class="num">03</span>
+    <div>
+      <h2>Kokonut UI — интерфейс, который надо потрогать</h2>
+      <p class="src">kokonutui.com · MIT · 102 компонента · React + Tailwind + Motion</p>
+    </div>
+  </div>
+
+  <div class="grid2 grid2--tight">
+    <div class="demo-box">
+      <p class="box-label">Slide to confirm</p>
+      <div class="slide" id="slide">
+        <span class="slide__hint">Тяни вправо</span>
+        <div class="slide__knob" id="slideKnob">→</div>
+        <span class="slide__done">Готово</span>
+      </div>
+      <p class="cap">Порог 90%: инерция, докрутка, блокировка после срабатывания</p>
+    </div>
+
+    <div class="demo-box">
+      <p class="box-label">Pull cord</p>
+      <div class="cord" id="cord">
+        <div class="cord__wire" id="cordWire"></div>
+        <div class="cord__knob" id="cordKnob"></div>
+      </div>
+      <p class="cap">Тянешь вниз и отпускаешь — срабатывает с отдачей</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 21ST -->
+<section class="sec sec--wide" data-sec>
+  <div class="sec__head">
+    <span class="num">04</span>
+    <div>
+      <h2>21st.dev — полутон и глубина</h2>
+      <p class="src">21st.dev · 12 000 компонентов · 590 шейдеров · курсовые фоны под нишу</p>
+    </div>
+  </div>
+
+  <div class="halftone-wrap" id="halftoneWrap">
+    <canvas id="halftone"></canvas>
+    <div class="halftone-text">
+      <span class="ht-small">Фон на полутоне, без картинок и без веса</span>
+      <span class="ht-big">ПЛОТНОСТЬ</span>
+    </div>
+  </div>
+</section>
+
+<!-- 05 В ДЕЛЕ -->
+<section class="sec sec--use" data-sec>
+  <div class="sec__head">
+    <span class="num">05</span>
+    <div>
+      <h2>Как это выглядит в блоке сайта</h2>
+      <p class="src">Собрано из пунктов 01–04 в одном экране</p>
+    </div>
+  </div>
+
+  <div class="use">
+    <div class="use__left">
+      <p class="eyebrow">Строительство · Брест</p>
+      <h3 class="use__title"><span class="mask"><span>Дом</span></span><span class="mask"><span>без</span></span><span class="mask"><span>сюрпризов</span></span></h3>
+      <p class="use__text">Смета до начала работ, этапы с приёмкой, гарантия по договору. Заголовок выезжает маской, цифры считаются, при наведении карточки тянутся за курсором.</p>
+      <button class="magnet magnet--sm" id="magnet2" type="button"><span class="magnet__label">Рассчитать смету</span><span class="magnet__arrow">↗</span></button>
+    </div>
+    <div class="use__right">
+      <div class="use__card"><b data-count="18">0</b><span>лет на площадке</span></div>
+      <div class="use__card"><b data-count="240">0</b><span>объектов сдано</span></div>
+      <div class="use__card"><b data-count="0">0</b><span>скрытых доплат</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__row">
+    <span>Источники</span>
+    <span class="foot__links">
+      <a href="https://animejs.com/" target="_blank" rel="noopener">Anime.js</a>
+      <a href="https://motion.dev/" target="_blank" rel="noopener">Motion</a>
+      <a href="https://kokonutui.com/" target="_blank" rel="noopener">Kokonut UI</a>
+      <a href="https://21st.dev/" target="_blank" rel="noopener">21st.dev</a>
+    </span>
+  </div>
+  <p class="foot__note">Демо-страница SiteFast. Все эффекты написаны вручную, без копирования компонентов библиотек.</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
